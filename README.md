@@ -1,40 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Personal Website - Vihaan Narvekar
 
-## Getting Started
+## Overview
+This is the personal website of Vihaan Narvekar, designed to showcase his experience, projects, and contact details in a modern, interactive, and visually appealing format. The website includes dynamic animations, a dark mode toggle, and a responsive layout built with React and Tailwind CSS.
 
-First, run the development server:
+## Features
+- **Dark Mode Toggle**: Users can switch between dark and light modes for a customizable viewing experience.
+- **Animated Sections**: Uses Framer Motion to enhance user interaction and improve visual appeal.
+- **Project Portfolio**: Displays Vihaan's projects with descriptions and GitHub links.
+- **Work Experience**: Highlights past internships and leadership roles.
+- **Contact Section**: Provides quick access to email and social media links.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Technologies Used
+- **React.js**: Framework for building the interactive frontend.
+- **Tailwind CSS**: For styling and layout design.
+- **Framer Motion**: For smooth animations and transitions.
+- **React Icons**: To incorporate popular icons from Font Awesome.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sections
+1. **Navigation**: Links to different sections of the website (About, Experience, Projects, Contact).
+2. **Hero Section**: Introduction with name, academic background, and social media links.
+3. **Experience**: Displays work experience with company name, role, duration, and description.
+4. **Projects**: Showcases Vihaan's coding projects with a brief overview and GitHub links.
+5. **Contact**: Encourages users to get in touch via email or social media.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Installation & Setup
+To run this project locally:
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Vihaan-Narvekar/personal-website.git
+   ```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+2. Navigate to the project directory:
+   ```bash
+   cd personal-website
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
+The website can be deployed using platforms like Vercel or Netlify. To deploy:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+- Build the project:
+  ```bash
+  npm run build
+  ```
+- Follow the deployment instructions provided by your preferred hosting platform.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contact
+For any inquiries or collaborations, feel free to reach out via:
+- **Email**: vihaan.narvekar@stern.nyu.edu
+- **GitHub**: [Vihaan-Narvekar](https://github.com/Vihaan-Narvekar)
+- **LinkedIn**: [Vihaan Narvekar](https://www.linkedin.com/in/vihaan-narvekar/)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This website is constantly being updated with new projects and experiences. Stay tuned for future enhancements!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
