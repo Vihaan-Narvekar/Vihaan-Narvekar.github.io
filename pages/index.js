@@ -63,7 +63,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          Hi, I'm Vihaan Narvekar
+          Hi, I&apos;m Vihaan Narvekar
         </motion.h1>
         <motion.p 
           className="text-xl text-gray-400 mt-3 mb-6"

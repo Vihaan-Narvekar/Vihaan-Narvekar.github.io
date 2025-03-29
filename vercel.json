@@ -1,7 +1,5 @@
 {
     "version": 2,
-    "routes": [
-        { "src": "/(.*)", "dest": "/pages/index.js" }
-    ],
-    "regions": ["sfo1"]
-}
+    "builds": [{ "src": "next.config.js", "use": "@vercel/next" }]
+  }
+  
