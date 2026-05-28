@@ -1,223 +1,237 @@
-import { useState, useEffect } from "react";
-import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun } from "react-icons/fa";
-import { motion } from "framer-motion";
+import Head from "next/head";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Moon, Sun } from "lucide-react";
 
-const projects = [
-  { name: "Sports Betting Arbitrage", description: "Typically odds across different sports betting sites differ slightly. Individuals can take advantage of them by hedging all positions in a sports event on two different platforms with distinct odds in such a way as to make a profit.", github: "https://github.com/Vihaan-Narvekar/arbitrage-sports-betting-project" },
-  { name: "Black Scholes Option Pricing Visualizer", description: "Given inputs, the program calculates call/put option prices using the Black Scholes pricing model. There are also heatmaps for volatility in relation to price as well as graphics for all greeks.", github: "https://github.com/Vihaan-Narvekar/Black-Scholes-Pricing" },
-  { name: "Geospatial Positioning with Landmark Recognition", description: "Our project uses a database of famous landmarks and their surroundings. It uses an algorithm rooted in algebra and trigonometry in order to determine the relative position of the camera in relation to the landmark.", github: "https://devpost.com/software/geospatial-positioning-using-ai-landmark-recognition" },
-  { name: "F1 Prediction Analysis", description: "The F1 Race Predictor is a machine learning-based tool designed to predict race outcomes based on historical data, qualifying results, and weather conditions. ", github: "https://github.com/Vihaan-Narvekar/F1_Predictions" }
+const contributions = [
+  {
+    text: "Conducted Stern Undergraduate Research on labor-market survey structure, wage-cycle inflection points, and monetary policy expectations.",
+    href: "/spur-writing-sample.pdf",
+    label: "Writing sample",
+  },
+  {
+    text: "Built an NLP workflow for FOMC transcripts, tracking inflation and labor-market concern through central bank communication.",
+  },
+  {
+    text: "Created valuation, sensitivity, and three-statement forecasting work as an Investment Banking Intern in the Healthcare Group at Integrus Partners.",
+  },
+  {
+    text: "Researched the Southwest Energy O&M sector at Hevesta Capital, developing sourcing frameworks for acquisition targets.",
+  },
+  {
+    text: "Built finance-focused technical projects including a Black-Scholes option pricing visualizer and earnings surprise analysis.",
+    href: "https://github.com/Vihaan-Narvekar",
+    label: "GitHub",
+  },
 ];
 
 const experience = [
-  { company: "LSE Data Science Society", role: "Events Manager", duration: "2024-2025", description: "Worked on data analysis for speakers and managed interorganizational events. Helped develop a workflow for workshops to ease setup and processing time by 10%." },
-  { company: "Cisco", role: "Intern", duration: "Summer 2023", description: "Collaborated with technical managers to develop a capstone project that utilized climate-based full-stack observability for day-to-day transactions and app database needs, increasing sustainability in financial services." }
+  [
+    "NYU Department of Finance",
+    "Researcher, Monetary Policy Communication Risk Monitor",
+    "May 2026 - Present",
+  ],
+  [
+    "NYU Stern Undergraduate Research",
+    "Undergraduate Researcher, labor market volatility and policy expectations",
+    "Sep 2025 - Jan 2026",
+  ],
+  ["Primerica", "Incoming Data Science Analyst", "Summer 2026"],
+  ["Integrus Partners", "Investment Banking Intern, Healthcare Group", "Aug 2025 - Oct 2025"],
+  ["Hevesta Capital", "Private Equity Intern", "Jul 2025 - Aug 2025"],
+  ["InspirEdu", "Accounting Intern", "May 2025 - Jul 2025"],
 ];
 
-export default function Home() {
-  const [darkMode, setDarkMode] = useState(true);
-  
-  useEffect(() => {
-    document.body.className = darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900";
-  }, [darkMode]);
+const skills = [
+  "Python",
+  "Pandas",
+  "scikit-learn",
+  "TensorFlow",
+  "R",
+  "SQL",
+  "C++",
+  "Bloomberg Terminal",
+  "S&P Capital IQ",
+  "Excel",
+];
 
-  // Animation variants for sections
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  };
+function InlineLink({ href, children }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+      <ArrowUpRight size={13} />
+    </a>
+  );
+}
+
+export default function Home() {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+
+    setTheme(initialTheme);
+    document.documentElement.dataset.theme = initialTheme;
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const handlePointerMove = (event) => {
+      document.documentElement.style.setProperty("--pointer-x", `${event.clientX}px`);
+      document.documentElement.style.setProperty("--pointer-y", `${event.clientY}px`);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+    return () => window.removeEventListener("pointermove", handlePointerMove);
+  }, []);
 
   return (
-    <div className={darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}>
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-50 shadow-md bg-opacity-90 bg-gray-800 dark:bg-gray-900">
-        <div className="flex gap-6 text-lg">
-          <a href="#about" className="hover:text-blue-400 transition">About</a>
-          <a href="#recent experience" className="hover:text-blue-400 transition">Experience</a>
-          <a href="#projects" className="hover:text-blue-400 transition">Projects</a>
-          <a href="#contact" className="hover:text-blue-400 transition">Contact</a>
-        </div>
-        <button onClick={() => setDarkMode(!darkMode)} className="text-xl focus:outline-none">
-          {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-700" />}
-        </button>
-      </nav>
+    <>
+      <Head>
+        <title>Vihaan Narvekar</title>
+        <meta
+          name="description"
+          content="Vihaan Narvekar's personal site, resume, research, and technical work."
+        />
+      </Head>
 
-      {/* Hero Section */}
-      <motion.section 
-        className="min-h-screen flex flex-col justify-center items-center text-center relative overflow-hidden py-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-      >
-        <motion.h1 
-          className="text-6xl font-bold mb-4" 
-          initial={{ opacity: 0, y: -20 }} 
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
-          Hi, I&apos;m Vihaan Narvekar
-        </motion.h1>
-        <motion.p 
-          className="text-xl text-gray-400 mt-3 mb-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-        >
-          Finance & Quantitative Economics | NYU Stern
-        </motion.p>
-        <motion.div 
-          className="flex justify-center gap-8 mt-6 text-3xl"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <a 
-            href="https://github.com/Vihaan-Narvekar" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 hover:text-white hover:scale-110 transition-all duration-200"
-            style={{pointerEvents: 'auto'}}
-          >
-            <FaGithub />
+      <main className="site-page">
+        <header className="site-header">
+          <a className="name-link" href="#top">
+            Vihaan Narvekar
           </a>
-          <a 
-            href="https://www.linkedin.com/in/vihaan-narvekar/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 hover:text-white hover:scale-110 transition-all duration-200"
-            style={{pointerEvents: 'auto'}}
-          >
-            <FaLinkedin />
-          </a>
-          <a 
-            href="mailto:vihaan.narvekar@stern.nyu.edu?subject=Portfolio Inquiry" 
-            className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 hover:text-white hover:scale-110 transition-all duration-200"
-            style={{pointerEvents: 'auto'}}
-          >
-            <FaEnvelope />
-          </a>
-        </motion.div>
-        <motion.div 
-          className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 blur-3xl" 
-          animate={{ scale: [1, 1.1, 1] }} 
-          transition={{ repeat: Infinity, duration: 4 }}
-        ></motion.div>
-      </motion.section>
-
-      {/* Divider */}
-      <div className="w-full max-w-6xl mx-auto border-t border-gray-700 opacity-30 my-10"></div>
-
-      {/* Experience Section */}
-      <motion.section 
-        className="min-h-screen flex flex-col justify-center items-center px-10 py-20" 
-        id="experience"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-5xl font-semibold mb-12">Experience</h2>
-        <div className="mt-8 space-y-10 w-full max-w-4xl">
-          {experience.map((job, index) => (
-            <motion.div 
-              key={index} 
-              className="bg-gray-800 p-8 rounded-lg shadow-lg text-center"
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
+          <nav aria-label="Primary navigation">
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              Resume
+            </a>
+            <a href="https://github.com/Vihaan-Narvekar" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/vihaan-narvekar/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <h3 className="text-2xl font-bold">{job.company}</h3>
-              <p className="text-lg text-gray-400 my-2">{job.role} | {job.duration}</p>
-              <p className="text-gray-300 mt-4">{job.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
+              LinkedIn
+            </a>
+            <a href="https://x.com/VihaanNarvekar" target="_blank" rel="noopener noreferrer">
+              X
+            </a>
+            <button
+              className="theme-toggle"
+              type="button"
+              onClick={() => setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"))}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            >
+              {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
+          </nav>
+        </header>
 
-      {/* Divider */}
-      <div className="w-full max-w-6xl mx-auto border-t border-gray-700 opacity-30 my-10"></div>
+        <section className="intro" id="top">
+          <div className="intro-copy">
+            <h1>About</h1>
+            <p>
+              Thanks for stopping by my page. I&apos;m a student at New York University&apos;s
+              Leonard N. Stern School of Business studying Business with concentrations in Finance
+              and Data Science, alongside a B.S. in Computer Science.
+            </p>
+            <p>
+              I&apos;m interested in the places where finance and technical work meet: macroeconomic
+              research, financial modeling, market structure, and data systems that make complicated
+              information easier to interpret.
+            </p>
+            <p>
+              At NYU, I&apos;m involved with Stern Undergraduate Research, the Quantitative Finance
+              Society, and the Business Analytics Club. My recent research work has focused on labor
+              market data, BLS survey methodology, and the relationship between employment signals
+              and monetary policy expectations.
+            </p>
+          </div>
+          <div className="headshot-wrap">
+            <Image
+              className="headshot"
+              src="/headshot.jpg"
+              alt="Vihaan Narvekar"
+              width="168"
+              height="168"
+              priority
+            />
+          </div>
+        </section>
 
-      {/* Projects Section */}
-      <motion.section 
-        className="min-h-screen flex flex-col justify-center items-center px-10 py-20" 
-        id="projects"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-5xl font-semibold mb-12">Projects</h2>
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full max-w-6xl">
-  {projects.map((project, index) => (
-    <motion.div
-      key={index}
-      className={`bg-gray-800 p-6 rounded-lg shadow-lg text-center transform hover:rotate-2 hover:scale-105 transition-all duration-300 ${
-        index === projects.length - 1 && projects.length % 3 === 1 ? "lg:col-span-3 mx-auto" : ""
-      }`}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.2, duration: 0.6 }}
-    >
-      <h3 className="text-2xl font-bold">{project.name}</h3>
-      <p className="text-gray-400 mt-4 mb-6">{project.description}</p>
-      <a 
-        href={project.github} 
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-500 transition"
-      >
-        View Project
-      </a>
-    </motion.div>
-  ))}
-</div>
+        <section className="section">
+          <h2>Selected Work</h2>
+          <ul className="contribution-list">
+            {contributions.map((item) => (
+              <li key={item.text}>
+                <span>{item.text}</span>
+                {item.href ? <InlineLink href={item.href}>{item.label}</InlineLink> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      </motion.section>
+        <section className="section">
+          <h2>Experience</h2>
+          <div className="experience-list">
+            {experience.map(([company, role, date]) => (
+              <article key={`${company}-${role}`}>
+                <div>
+                  <h3>{company}</h3>
+                  <p>{role}</p>
+                </div>
+                <span>{date}</span>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      {/* Divider */}
-      <div className="w-full max-w-6xl mx-auto border-t border-gray-700 opacity-30 my-10"></div>
+        <section className="section">
+          <h2>Education</h2>
+          <p>
+            New York University, Leonard N. Stern School of Business. B.S. in Business with
+            concentrations in Finance and Data Science; B.S. in Computer Science. Cumulative GPA:
+            3.9/4.0.
+          </p>
+          <p className="muted">
+            Relevant coursework: Probability Theory, Data Science and AI, Futures and Options, and
+            Multivariable Calculus.
+          </p>
+        </section>
 
-      {/* Contact Section */}
-      <motion.section 
-        className="min-h-screen flex flex-col justify-center items-center px-10 py-20" 
-        id="contact"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-5xl font-semibold mb-8">Get In Touch</h2>
-        <motion.p 
-          className="text-lg text-gray-400 mt-6 text-center max-w-2xl mb-10"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          Feel free to reach out for collaboration or just to say hi!
-        </motion.p>
-        <motion.a 
-          href="mailto:vihaan.narvekar@stern.nyu.edu?subject=Let's Connect&body=Hi, I'd love to get in touch!" 
-          className="mt-6 inline-block px-8 py-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-400 transition-all duration-300 hover:scale-105"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          whileHover={{ y: -5 }}
-        >
-          Contact Me
-        </motion.a>
-      </motion.section>
-    </div>
+        <section className="section">
+          <h2>Skills</h2>
+          <div className="skill-row">
+            {skills.map((skill) => (
+              <span key={skill}>{skill}</span>
+            ))}
+          </div>
+        </section>
+
+        <footer className="footer">
+          <p>Vihaan Narvekar</p>
+          <div>
+            <a href="mailto:vihaan.narvekar@stern.nyu.edu">Email</a>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              Resume
+            </a>
+            <a href="/spur-writing-sample.pdf" target="_blank" rel="noopener noreferrer">
+              Writing sample
+            </a>
+            <a href="https://x.com/VihaanNarvekar" target="_blank" rel="noopener noreferrer">
+              X
+            </a>
+          </div>
+        </footer>
+      </main>
+    </>
   );
 }
